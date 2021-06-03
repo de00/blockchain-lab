@@ -25,6 +25,25 @@ type BlockchainIterator struct {
 // AddBlock saves provided data as a block in the blockchain
 // implement
 func (bc *Blockchain) AddBlock(data []string) {
+	block := NewBlock(data, bc.Iterator().currentHash)
+	err := bc.db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blocksBucket))
+		blockInDb := b.Get(block.Hash)
+
+		if blockInDb != nil {
+			return nil
+		}
+
+		blockData := block.Serialize()
+		err := b.Put(block.Hash, blockData)
+		if err != nil {
+			log.Panic(err)
+		}
+		return nil
+	})
+	if err != nil {
+		log.Panic(err)
+	}
 
 }
 

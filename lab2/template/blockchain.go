@@ -5,6 +5,8 @@ import (
 	"log"
 
 	"github.com/boltdb/bolt"
+
+	"encoding/hex"
 )
 
 const dbFile = "blockchain.db"
@@ -25,6 +27,31 @@ type BlockchainIterator struct {
 // AddBlock saves provided data as a block in the blockchain
 // implement
 func (bc *Blockchain) AddBlock(data []string) {
+
+	newblk := NewBlock(data, bc.tip)
+	fmt.Printf("[hash]%s\n",hex.EncodeToString(newblk.Hash))
+	err := bc.db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte(blocksBucket))
+		if b == nil {
+		} else {
+			
+			err := b.Put(newblk.Hash, newblk.Serialize())
+			if err != nil {
+				log.Panic(err)
+			}
+			err = b.Put([]byte("l"), newblk.Hash)
+			if err != nil {
+				log.Panic(err)
+			}
+			bc.tip = newblk.Hash
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Panic(err)
+	}
 
 }
 
