@@ -12,7 +12,7 @@ peer:
 
     # The peer id provides a name for this peer instance and is used when
     # naming docker resources.
-    id: dong.peer1
+    id: leehm
 
     # The networkId allows for logical separation of networks and is used when
     # naming docker resources.
@@ -20,7 +20,7 @@ peer:
 
     # The Address at local network interface this Peer will listen on.
     # By default, it will listen on all network interfaces
-    listenAddress: node89:7061
+    listenAddress: node88:9999
 
     # The endpoint this peer uses to listen for inbound chaincode connections.
     # If this is commented-out, the listen address is selected to be
@@ -39,7 +39,7 @@ peer:
     # in the same organization. For peers in other organization, see
     # gossip.externalEndpoint for more info.
     # When used as CLI config, this means the peer's endpoint to interact with
-    address: node89:7061
+    address: node88:9999
 
     # Whether the Peer should programmatically determine its address
     # This case is useful for docker containers.
@@ -86,7 +86,7 @@ peer:
         # Important: The endpoints here have to be endpoints of peers in the same
         # organization, because the peer would refuse connecting to these endpoints
         # unless they are in the same organization as the peer.
-        bootstrap: node89:7061
+        bootstrap: node88:7061
 
         # NOTE: orgLeader and useLeaderElection parameters are mutual exclusive.
         # Setting both to true would result in the termination of the peer
@@ -113,7 +113,7 @@ peer:
         # Overrides the endpoint that the peer publishes to peers
         # in its organization. For peers in foreign organizations
         # see 'externalEndpoint'
-        endpoint: node89:7061
+        endpoint: node88:7061
         # Maximum count of blocks stored in memory
         maxBlockCountToStore: 100
         # Max time between consecutive message pushes(unit: millisecond)
@@ -301,7 +301,7 @@ peer:
     # Path on the file system where peer will store data (eg ledger). This
     # location must be access control protected to prevent unintended
     # modification that might corrupt the peer operations.
-    fileSystemPath: /home/dongjl/peer/data
+    fileSystemPath: /home/UserPB18071495/peer/data
 
     # BCCSP (Blockchain crypto provider): Select which crypto implementation or
     # library to use
@@ -330,7 +330,7 @@ peer:
             Security:
 
     # Path on the file system where peer will find MSP local configurations
-    mspConfigPath: msp
+    mspConfigPath: /home/UserPB18071495/peer-msp
 
     # Identifier of the local MSP
     # ----!!!!IMPORTANT!!!-!!!IMPORTANT!!!-!!!IMPORTANT!!!!----
@@ -339,7 +339,7 @@ peer:
     # to match the name of one of the MSPs in each of the channel
     # that this peer is a member of. Otherwise this peer's messages
     # will not be identified as valid by other nodes.
-    localMspId: DongOrg
+    localMspId: Peer
 
     # CLI common client config options
     client:
@@ -375,7 +375,7 @@ peer:
     # production, it should be disabled (eg enabled: false)
     profile:
         enabled: true
-        listenAddress: 222.195.70.189:6060
+        listenAddress: 222.195.70.188:6060
 
     # Handlers defines custom handlers that can filter and mutate
     # objects passing within the peer, such as:
@@ -462,7 +462,7 @@ peer:
             endorserService: 2500
             # deliverService limits concurrent event listeners registered to deliver service for blocks and transaction events.
             deliverService: 2500
-    chaincodeListenAddress: node89:7062
+    chaincodeListenAddress: node88:9990
 ###############################################################################
 #
 #    VM section
@@ -700,7 +700,7 @@ ledger:
 
   snapshots:
     # Path on the file system where peer will store ledger snapshots
-          rootDir: /home/dongjl/peer/snapshots
+          rootDir: /home/UserPB18071495/peer/snapshots
 
 ###############################################################################
 #
@@ -709,7 +709,7 @@ ledger:
 ###############################################################################
 operations:
     # host and port for the operations server
-    listenAddress: node89:9461
+    listenAddress: node88:9461
 
     # TLS configuration for the operations endpoint
     tls:

@@ -12,14 +12,14 @@ NodeOUs:
   # able to add other CA or intermediate certs later, without having to reissue all credentials.
   # For this reason, the sample below comments out the Certificate field.
   ClientOUIdentifier:
-    Certificate: "cacerts/node86-7054.pem"
+    Certificate: "cacerts/222-195-70-186-7054.pem"
     OrganizationalUnitIdentifier: "client"
   PeerOUIdentifier:
-    Certificate: "cacerts/node86-7054.pem"
+    Certificate: "cacerts/222-195-70-186-7054.pem"
     OrganizationalUnitIdentifier: "peer"
   AdminOUIdentifier:
-    Certificate: "cacerts/node86-7054.pem"
+    Certificate: "cacerts/222-195-70-186-7054.pem"
     OrganizationalUnitIdentifier: "admin"
   OrdererOUIdentifier:
-    Certificate: "cacerts/node86-7054.pem"
+    Certificate: "cacerts/222-195-70-186-7054.pem"
     OrganizationalUnitIdentifier: "orderer"

@@ -121,7 +121,7 @@ GO111MODULE=on go mod vendor 下载依赖包存放于vender目录
 打包链码（路径不要弄错）
 
 ```
-peer lifecycle chaincode package fabcar.tar.gz --path ../chaincode/fabcar/go/ --lang golang --label fabcar_1
+peer lifecycle chaincode package atcc.tar.gz --path . --lang golang --label atcc
 ```
 
 注意：在进行以下操作时，请确保通过参数输入、core.yaml文件放于同一目录下或者设置环境变量等办法确保你联系到正确的peer服务，并且提供正确的msp。
@@ -137,7 +137,7 @@ export FABRIC_CFG_PATH
 安装链码
 
 ```
-peer lifecycle chaincode install fabcar.tar.gz
+peer lifecycle chaincode install atcc.tar.gz
 ```
 
 可以查询已经安装的链码信息
@@ -149,44 +149,48 @@ peer lifecycle chaincode queryinstalled
 根据返回的信息，设置参数，调用下面的命令
 
 ```
-export CC_PACKAGE_ID=fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506
+export CC_PACKAGE_ID=atcc:1e821e6da08ae303465812838860faa8ac4c464338b46214549260f329fe8ff1
 ```
 
 批准链码
 
 ```
-peer lifecycle chaincode approveformyorg -o ordereraddress:7050 --channelID mychannel --name fabcar --version 1.0 --package-id $CC_PACKAGE_ID --sequence 1
+peer lifecycle chaincode approveformyorg -o 222.195.70.186:7049 --channelID bcchannel --name atcc --version 1.0 --package-id $CC_PACKAGE_ID --sequence 1
 ```
 
 可以查询批准的链码信息
 
 ```
-peer lifecycle chaincode queryapproved --channelID mychannel -n fabcar
+peer lifecycle chaincode queryapproved --channelID bcchannel -n atcc
 ```
 
 可以查询已经批准的组织信息
 
 ```
-peer lifecycle chaincode checkcommitreadiness --channelID mychannel -n fabcar --version 1.0 --sequence 1
+peer lifecycle chaincode checkcommitreadiness --channelID bcchannel -n atcc --version 1.0 --sequence 1
 ```
 
 最后如果应该批准的大部分组织都已经批准了，那么就可以commit到通道（提醒排序节点和本peer），开始这个链码的服务了
 
 ```
-peer lifecycle chaincode commit -o ordereraddress:7050 --channelID mychannel --name mycc --version 1.0 --sequence 1 --peerAddresses peer0.org1.example.com:7051 --peerAddresses peer0.org2.example.com:9051(输入所有有安装链码并且批准的peer节点服务地址:端口,在这次实验里只有这一个地址)
+peer lifecycle chaincode commit -o 222.195.70.186:7049 --channelID bcchannel --name atcc --version 1.0 --sequence 1 --peerAddresses 222.195.70.188:9999
+(输入所有有安装链码并且批准的peer节点服务地址:端口,在这次实验里只有这一个地址)
 ```
 
 如果以上都成功了，可以调用链码的函数，例如initLedger来初始化数据库
 
 ```
-peer chaincode invoke -o ordereraddress:7050 -C mychannel -n fabcar --peerAddresses node89:7061 -c '{"function":"initLedger","Args":[]}'
+peer chaincode invoke -o 222.195.70.186:7049 -C bcchannel -n atcc --peerAddresses node88:9999 -c '{"function":"initLedger","Args":[]}'
 ```
 
 然后可以进行其他查询或者调用
 
 ```
-peer chaincode query -C mychannel -n fabcar -c '{"Args":["queryAllCars"]}'
-peer chaincode invoke ordereraddress:7050 -C mychannel -n fabcar --peerAddresses
+peer chaincode query -C bcchannel -n atcc -c '{"function":"GetAllAssets","Args":[]}'
+peer chaincode invoke ordereraddress:7049 -C bcchannel -n atcc --peerAddresses node88:9999 -c '{"function":"ReadAsset","Args":["asset4"]}'
+peer chaincode invoke ordereraddress:7049 -C bcchannel -n atcc --peerAddresses node88:9999 -c '{"function":"CreateAsset","Args":["asset4","leehm","100000000"]}'
+peer chaincode invoke ordereraddress:7049 -C bcchannel -n atcc --peerAddresses node88:9999 -c '{"function":"UpdateAsset","Args":["asset3","garret","100000000"]}'
+peer chaincode invoke ordereraddress:7049 -C bcchannel -n atcc --peerAddresses node88:9999 -c '{"function":"DeleteAsset","Args":["asset2"]}'
 
 peer0.org2.example.com:9051 -c '{"function":"CreateCar","Args":["CAR10","Dong","JianLiang","Red","djl"]}'
 

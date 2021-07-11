@@ -42,7 +42,7 @@ rQOxgGAnSN1mG3gL
 
 >>>>>>> 66ea4af727e91ca20ac040f812b8fa9e6a5bd843
 
-在本次实验中，所有同学启动的peer节点都属于一个组织，peer节点组织名为Peer，需要加入的通道名称为bcclass 。
+在本次实验中，所有同学启动的peer节点都属于一个组织，peer节点组织名为Peer，需要加入的通道名称为bcclass 。v
 
 同学们需要用到的程序有fabric-ca-client、peer。其可执行文件所在的路径都已经设置为系统的全局变量，可以直接使用这些命令，但是需要注意使程序能够找到配置文件所在的目录（例如使用export来设置用户环境变量，export FABRIC_CFG_PATH=config_file_path）。
 
@@ -83,7 +83,7 @@ bcclass.block：bcclass通道的初始块
 ```
 注册组织peer (一定要记得 --home指定目录或者export设置工作目录环境变量)
 
-fabric-ca-client register --id.name leehm --id.secret 123456 --id.type peer -u http://127.0.0.1:7054 --mspdir ./admin/msp
+fabric-ca-client register --id.name leehm --id.secret 123456 --id.type peer -u http://222.195.70.186:7054 --mspdir ca-msp
 >>>>>>> 66ea4af727e91ca20ac040f812b8fa9e6a5bd843
 
 获得组织peer的msp
